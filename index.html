@@ -86,37 +86,7 @@
     <button class="qa-btn qa-btn--primary" id="btn-save" title="ذخیره پیش‌نویس">
       <span class="qa-icon">💾</span><span class="qa-label">ذخیره</span>
     </button>
-
-    <!--分隔 -- تقسیم‌کننده نوار-->
-    <span class="qa-sep"></span>
-
-    <button class="qa-btn" id="btn-theme" title="تغییر تم روشن/تاریک">
-      <span class="qa-icon" id="theme-icon">🌙</span><span class="qa-label">تم</span>
-    </button>
-    <button class="qa-btn" id="btn-scan" title="اسکن بارکد محصول">
-      <span class="qa-icon">📷</span><span class="qa-label">اسکن</span>
-    </button>
-    <button class="qa-btn" id="btn-backup" title="بک‌آپ گرفتن از داده‌ها (JSON)">
-      <span class="qa-icon">⬇️</span><span class="qa-label">بک‌آپ</span>
-    </button>
-    <button class="qa-btn" id="btn-restore" title="بازیابی داده‌ها از فایل JSON">
-      <span class="qa-icon">⬆️</span><span class="qa-label">بازیابی</span>
-    </button>
   </nav>
-
-  <!-- ░░ BARCODE SCAN OVERLAY ░░ -->
-  <div class="scan-overlay" id="scan-overlay" style="display:none">
-    <div class="scan-box">
-      <div class="scan-spinner"></div>
-      <p class="scan-hint">در حال خواندن بارکد...</p>
-      <p class="scan-sub">از تصویر بارکد روی محصول عکس بگیرید</p>
-      <button class="btn-scan-cancel" id="btn-scan-cancel">انصراف</button>
-    </div>
-  </div>
-
-  <!-- ░░ HIDDEN FILE INPUTS ░░ -->
-  <input type="file" id="scan-file-input" accept="image/*" capture="environment" style="display:none" />
-  <input type="file" id="restore-file-input" accept="application/json,.json" style="display:none" />
 
   <!-- ░░ MAIN LAYOUT ░░ -->
   <main class="main-layout">
@@ -269,15 +239,6 @@
           </div>
         </div>
       </div>
-
-      <!-- ░░ BARCODE MANAGEMENT SECTION ░░ -->
-      <div class="barcode-section">
-        <div class="barcode-section-hdr">
-          <span class="barcode-section-title">🏷 مدیریت بارکد محصولات</span>
-          <span class="barcode-section-sub">بارکد واقعی هر محصول را وارد کنید تا اسکن کار کند</span>
-        </div>
-        <div class="barcode-list" id="barcode-list"><!-- توسط JS پر می‌شود --></div>
-      </div>
       <div class="modal-footer">
         <button class="btn-primary" id="btn-save-setup">ذخیره اطلاعات</button>
       </div>
@@ -294,7 +255,6 @@
     <button class="btn-install-dismiss" id="btn-install-dismiss">بعداً</button>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
