@@ -1,0 +1,37 @@
+{
+  "name": "شرکت سوپر کولا — واحد سفارش‌گیری",
+  "short_name": "سوپر کولا",
+  "description": "واحد حرفه‌ای سفارش‌گیری توزیع نوشیدنی سوپر کولا",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#8B0000",
+  "theme_color": "#8B0000",
+  "orientation": "any",
+  "lang": "fa",
+  "dir": "rtl",
+  "categories": ["business", "productivity"],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "سفارش جدید",
+      "short_name": "سفارش",
+      "description": "شروع سفارش جدید",
+      "url": "./index.html",
+      "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

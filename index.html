@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#8B0000" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="شرکت سوپر کولا" />
+  <link rel="manifest" href="manifest.json" />
+  <title>شرکت سوپر کولا</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- ░░ HEADER ░░ -->
+  <header class="app-header">
+    <div class="header-inner">
+      <div class="brand">
+        <div class="brand-logo">
+          <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="24" cy="24" r="22" fill="#8B0000" stroke="#D4AF37" stroke-width="2.5"/>
+            <path d="M14 18 Q24 10 34 18 Q30 28 24 32 Q18 28 14 18Z" fill="#D4AF37" opacity="0.85"/>
+            <text x="24" y="27" text-anchor="middle" font-size="9" font-weight="bold" fill="#fff" font-family="sans-serif">SC</text>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <span class="brand-name">شرکت سوپر کولا</span>
+          <span class="brand-sub">واحد سفارش‌گیری حرفه‌ای</span>
+        </div>
+      </div>
+
+      <div class="header-customer">
+        <div class="customer-info-grid">
+          <div class="customer-field" id="hdr-customer">
+            <span class="field-label">مشتری</span>
+            <span class="field-val" id="display-customer">—</span>
+          </div>
+          <div class="customer-field" id="hdr-store">
+            <span class="field-label">فروشگاه</span>
+            <span class="field-val" id="display-store">—</span>
+          </div>
+          <div class="customer-field">
+            <span class="field-label">دسته‌بندی</span>
+            <span class="field-val badge" id="display-cat">—</span>
+          </div>
+          <div class="customer-field">
+            <span class="field-label">تاریخ</span>
+            <span class="field-val" id="display-date">—</span>
+          </div>
+          <div class="customer-field">
+            <span class="field-label">آخرین سفارش</span>
+            <span class="field-val" id="display-last-order">—</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-setup" id="btn-open-setup" title="تنظیم مشتری">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        تنظیم
+      </button>
+    </div>
+  </header>
+
+  <!-- ░░ QUICK ACTIONS ░░ -->
+  <nav class="quick-actions">
+    <button class="qa-btn" id="btn-repeat" title="تکرار سفارش قبلی">
+      <span class="qa-icon">🔄</span><span class="qa-label">تکرار سفارش</span>
+    </button>
+    <button class="qa-btn" id="btn-voice" title="سفارش صوتی">
+      <span class="qa-icon">🎤</span><span class="qa-label">سفارش صوتی</span>
+    </button>
+    <button class="qa-btn" id="btn-export-pdf" title="خروجی PDF">
+      <span class="qa-icon">📄</span><span class="qa-label">PDF</span>
+    </button>
+    <button class="qa-btn" id="btn-export-png" title="خروجی تصویر">
+      <span class="qa-icon">📸</span><span class="qa-label">تصویر</span>
+    </button>
+    <button class="qa-btn" id="btn-whatsapp" title="ارسال واتساپ">
+      <span class="qa-icon">📲</span><span class="qa-label">واتساپ</span>
+    </button>
+    <button class="qa-btn" id="btn-telegram" title="ارسال تلگرام">
+      <span class="qa-icon">✈️</span><span class="qa-label">تلگرام</span>
+    </button>
+    <button class="qa-btn qa-btn--primary" id="btn-save" title="ذخیره پیش‌نویس">
+      <span class="qa-icon">💾</span><span class="qa-label">ذخیره</span>
+    </button>
+
+    <!--分隔 -- تقسیم‌کننده نوار-->
+    <span class="qa-sep"></span>
+
+    <button class="qa-btn" id="btn-theme" title="تغییر تم روشن/تاریک">
+      <span class="qa-icon" id="theme-icon">🌙</span><span class="qa-label">تم</span>
+    </button>
+    <button class="qa-btn" id="btn-scan" title="اسکن بارکد محصول">
+      <span class="qa-icon">📷</span><span class="qa-label">اسکن</span>
+    </button>
+    <button class="qa-btn" id="btn-backup" title="بک‌آپ گرفتن از داده‌ها (JSON)">
+      <span class="qa-icon">⬇️</span><span class="qa-label">بک‌آپ</span>
+    </button>
+    <button class="qa-btn" id="btn-restore" title="بازیابی داده‌ها از فایل JSON">
+      <span class="qa-icon">⬆️</span><span class="qa-label">بازیابی</span>
+    </button>
+  </nav>
+
+  <!-- ░░ BARCODE SCAN OVERLAY ░░ -->
+  <div class="scan-overlay" id="scan-overlay" style="display:none">
+    <div class="scan-box">
+      <div class="scan-spinner"></div>
+      <p class="scan-hint">در حال خواندن بارکد...</p>
+      <p class="scan-sub">از تصویر بارکد روی محصول عکس بگیرید</p>
+      <button class="btn-scan-cancel" id="btn-scan-cancel">انصراف</button>
+    </div>
+  </div>
+
+  <!-- ░░ HIDDEN FILE INPUTS ░░ -->
+  <input type="file" id="scan-file-input" accept="image/*" capture="environment" style="display:none" />
+  <input type="file" id="restore-file-input" accept="application/json,.json" style="display:none" />
+
+  <!-- ░░ MAIN LAYOUT ░░ -->
+  <main class="main-layout">
+
+    <!-- LEFT: Search + Entry -->
+    <section class="section-entry">
+
+      <!-- Search -->
+      <div class="search-card card">
+        <div class="search-header">
+          <h2 class="section-title">جستجو و افزودن محصول</h2>
+        </div>
+        <div class="search-wrap">
+          <div class="search-input-wrap">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <input
+              type="text"
+              id="product-search"
+              class="search-input"
+              placeholder="نام محصول را تایپ کنید (سوپر کولا)"
+              autocomplete="off"
+              autocorrect="off"
+              spellcheck="false"
+            />
+            <button class="search-clear" id="search-clear" style="display:none" title="پاک کردن">✕</button>
+          </div>
+          <div class="search-results" id="search-results" style="display:none"></div>
+        </div>
+      </div>
+
+      <!-- Product Entry Panel -->
+      <div class="entry-card card" id="entry-panel" style="display:none">
+        <div class="entry-product-name" id="entry-product-name"></div>
+        <div class="entry-controls">
+          <div class="qty-control">
+            <button class="qty-btn qty-dec" id="qty-dec" aria-label="کاهش">−</button>
+            <div class="qty-display">
+              <input type="number" id="qty-input" class="qty-input" value="1" min="1" max="9999" />
+              <span class="qty-unit">بسته</span>
+            </div>
+            <button class="qty-btn qty-inc" id="qty-inc" aria-label="افزایش">+</button>
+          </div>
+          <div class="qty-presets">
+            <button class="preset-btn" data-val="5">۵</button>
+            <button class="preset-btn" data-val="10">۱۰</button>
+            <button class="preset-btn" data-val="20">۲۰</button>
+            <button class="preset-btn" data-val="30">۳۰</button>
+            <button class="preset-btn" data-val="50">۵۰</button>
+          </div>
+        </div>
+        <button class="btn-add-order" id="btn-add-order">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          افزودن به سفارش
+        </button>
+      </div>
+
+      <!-- Voice Panel -->
+      <div class="voice-panel card" id="voice-panel" style="display:none">
+        <div class="voice-inner">
+          <div class="voice-wave" id="voice-wave">
+            <span></span><span></span><span></span><span></span><span></span>
+          </div>
+          <p class="voice-hint" id="voice-hint">در حال گوش دادن...</p>
+          <div class="voice-transcript" id="voice-transcript"></div>
+          <button class="btn-voice-stop" id="btn-voice-stop">توقف</button>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- RIGHT: Order Table + Summary -->
+    <section class="section-order">
+
+      <!-- Summary -->
+      <div class="summary-card card" id="order-summary">
+        <div class="summary-stat">
+          <span class="stat-val" id="stat-lines">۰</span>
+          <span class="stat-label">قلم سفارش</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-stat">
+          <span class="stat-val" id="stat-cartons">۰</span>
+          <span class="stat-label">کل بسته</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-stat">
+          <span class="stat-val status-badge" id="stat-status">پیش‌نویس</span>
+          <span class="stat-label">وضعیت</span>
+        </div>
+        <div class="summary-divider"></div>
+        <div class="summary-stat">
+          <span class="stat-val stat-time" id="stat-time">—</span>
+          <span class="stat-label">آخرین تغییر</span>
+        </div>
+      </div>
+
+      <!-- Order Table -->
+      <div class="order-card card">
+        <div class="order-header">
+          <h2 class="section-title">اقلام سفارش</h2>
+          <button class="btn-clear-order" id="btn-clear-order" title="پاک کردن سفارش">پاک کردن</button>
+        </div>
+
+        <div class="order-empty" id="order-empty">
+          <div class="empty-icon">🛒</div>
+          <p>سفارشی ثبت نشده است</p>
+          <p class="empty-sub">محصول مورد نظر را جستجو کنید</p>
+        </div>
+
+        <div class="table-wrap" id="table-wrap" style="display:none">
+          <table class="order-table" id="order-table">
+            <thead>
+              <tr>
+                <th class="col-num">#</th>
+                <th class="col-product">محصول</th>
+                <th class="col-qty">بسته</th>
+                <th class="col-actions">ویرایش</th>
+              </tr>
+            </thead>
+            <tbody id="order-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+  </main>
+
+  <!-- ░░ SETUP MODAL ░░ -->
+  <div class="modal-overlay" id="setup-modal" style="display:none">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>تنظیم اطلاعات مشتری</h3>
+        <button class="modal-close" id="modal-close">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">نام مشتری</label>
+          <input type="text" id="input-customer" class="form-input" placeholder="مثال: علی رضایی" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">نام فروشگاه</label>
+          <input type="text" id="input-store" class="form-input" placeholder="مثال: فروشگاه برادران رضایی" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">دسته‌بندی مشتری</label>
+          <div class="cat-options">
+            <label class="cat-opt"><input type="radio" name="cat" value="retail" checked /><span>خرده‌فروشی</span></label>
+            <label class="cat-opt"><input type="radio" name="cat" value="wholesale" /><span>عمده‌فروشی</span></label>
+            <label class="cat-opt"><input type="radio" name="cat" value="vip" /><span>VIP</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- ░░ BARCODE MANAGEMENT SECTION ░░ -->
+      <div class="barcode-section">
+        <div class="barcode-section-hdr">
+          <span class="barcode-section-title">🏷 مدیریت بارکد محصولات</span>
+          <span class="barcode-section-sub">بارکد واقعی هر محصول را وارد کنید تا اسکن کار کند</span>
+        </div>
+        <div class="barcode-list" id="barcode-list"><!-- توسط JS پر می‌شود --></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-primary" id="btn-save-setup">ذخیره اطلاعات</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ░░ TOAST ░░ -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- ░░ INSTALL PROMPT ░░ -->
+  <div class="install-banner" id="install-banner" style="display:none">
+    <span>📱 نصب برنامه سوپر کولا روی دستگاه شما</span>
+    <button class="btn-install" id="btn-install">نصب</button>
+    <button class="btn-install-dismiss" id="btn-install-dismiss">بعداً</button>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
